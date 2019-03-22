@@ -1,14 +1,169 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Montserrat", "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 100%;
+  font-size: 16px;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+/* -------FLIP CARD---------- */
+
+.flip-card {
+  background-color: transparent;
+  width: 320px;
+  height: 340px;
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  box-shadow: 0 10px 35px rgba(50, 50, 93, 0.1), 0 2px 15px rgba(0, 0, 0, 0.07);
+  margin: 10px 0px;
+  border-radius: 35px;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.flip-card-front {
+  color: black;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.flip-card-front-top {
+  height: 80px;
+  border-top-left-radius: 35px;
+  border-top-right-radius: 35px;
+}
+
+.flip-card-front-bottom p {
+  font-size: 16px;
+  margin: 0px;
+  padding: 0px;
+  font-family: "Margarine", cursive;
+  text-align: center;
+}
+
+.flip-card-back {
+  background-color: #2980b9;
+  color: white;
+  transform: rotateY(180deg);
+  z-index: 1;
+  border-radius: 35px;
+  font-size: 16px;
+  font-family: "Margarine", cursive;
+}
+
+/* ---------- front card layout ----------- */
+.flip-card-front-bottom {
+  margin-top: 5px;
+}
+
+.name {
+  color: orangered;
+  font-weight: bold;
+}
+
+.attributes {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.attributes p {
+  font-size: 14px;
+}
+
+.professions p {
+  color: blue;
+}
+
+.profession span {
+  font-size: 14px;
+}
+
+/* ----------------IMAGEs----------------- */
+.img-container {
+  height: 50px;
+}
+
+img.img-circle {
+  width: 100px;
+  height: 100px;
+  margin-top: -50px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+img.back-img {
+  margin-top: 10px;
+  width: 200;
+  height: 200px;
+  object-fit: cover;
+}
+
+img.ageIcon,
+img.weightIcon,
+img.heightIcon {
+  width: 30px;
+  height: 30px;
+}
+
+.age-group,
+.weight-group,
+.height-group {
+  display: flex;
+}
+
+/* -----------DROPDOWN MENUS----------------- */
+
+/* ----name, age, weight, height ---------  */
+
+a.btn-secondary {
+  color: black;
+  background-color: white;
+  width: 120px;
+  text-align: left;
+}
+a.dropdown-toggle::after {
+  float: right;
+}
+
+/* .menu-container {
+  
+} */
+
+.basic-multi-select {
+  width: 300px;
+}
+
+.basic-single {
+  width: 200px;
+}
+
+/* ------- */
