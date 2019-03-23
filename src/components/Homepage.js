@@ -5,11 +5,8 @@ import Gnome from "./Gnome";
 import ProfessionMenu from "./Menu/ProfessionMenu";
 import OrderMenu from "./Menu/OrderMenu";
 import HairColorMenu from "./Menu/HairColorMenu";
-import HairMenu from "./Menu/HairMenu";
-import SelectBox from "./Select/selectBox";
-import DropdownExampleSelection from "./example";
 
-class Container extends Component {
+class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,15 +16,13 @@ class Container extends Component {
       order: "",
       hairColor: "",
       profession: "",
-      hair: null,
-      reset: false,
+      hair: "",
     };
     this.doOrderBy = this.doOrderBy.bind(this);
     this.doOrder = this.doOrder.bind(this);
     this.handleColor = this.handleColor.bind(this);
     this.handlePro = this.handlePro.bind(this);
-    this.handleHair = this.handleHair.bind(this);
-    this.reset = this.reset.bind(this);
+    this.handleReset = this.handleReset.bind(this);
   }
 
   // ----------------get data from API & save to local storage-------------------------
@@ -47,25 +42,19 @@ class Container extends Component {
   // --------- show data when component mounts ---------------------------
   componentDidMount() {
     this.fetchGnomes();
-    this.setState({
-      data: this.state.data,
-    });
   }
 
   //------------- handle and bind order value -----------------
   doOrderBy(val) {
-    // const newOrderBy = val.map(item => item.value);
-    console.log(val);
-
     const newOrderBy = Object.keys(val).map(key => val[key])[0];
-    if (val === undefined || null) {
-      return val === {};
-    } else {
-      this.setState({
-        orderBy: newOrderBy,
-      });
-    }
+    console.log(newOrderBy);
+    this.setState({
+      orderBy: newOrderBy,
+    });
   }
+
+  //   const value = chosenValue === null ? '' : chosenValue.value
+  // this.setState({ value });
 
   // ---------- handle and bind asc or desc order value -----------------
   doOrder(e) {
@@ -92,23 +81,21 @@ class Container extends Component {
       profession: newPro,
     });
   }
-  // ---------reset
-  reset(e) {
-    const newReset = e.target.getAttribute("data-value");
-    console.log(newReset);
-  }
-
-  handleHair(val) {
-    console.log(val);
-    const newHair = val.map(item => item.value);
-    console.log(val);
-    this.setState({
-      hair: newHair,
-    });
+  // ---------reset ------------------
+  handleReset(e) {
+    // const newValue = e.target.getAttribute("value");
+    // console.log(e);
+    // this.setState({
+    //   ..._.filter(sorted, item => _.includes(hairColor, item.hair_color));
+    //   orderBy: [],
+    //   order: "",
+    //   hairColor: "",
+    //   profession: "",
+    //   hair: "",
+    // });
   }
 
   render() {
-    console.log(this.state.data);
     const {
       data,
       imageIsLoaded,
@@ -123,7 +110,7 @@ class Container extends Component {
     // ------------sort the gnomes according to selected properties -------------
 
     if (order) {
-      if (orderBy !== "number of friends") {
+      if (orderBy !== ("number of friends" && "number of professions")) {
         sorted = _.orderBy(
           sorted,
           item => {
@@ -131,14 +118,19 @@ class Container extends Component {
           },
           order
         );
-      } else if (orderBy === null || undefined || "") {
-        // const friends = sorted.map(item => item.friends);
-        sorted = data;
-      } else {
+      } else if (orderBy === "number of friends") {
         sorted = _.orderBy(
           sorted,
           item => {
             return item.friends.length;
+          },
+          order
+        );
+      } else {
+        sorted = _.orderBy(
+          sorted,
+          item => {
+            return item.professions.length;
           },
           order
         );
@@ -153,47 +145,48 @@ class Container extends Component {
       sorted = data;
     }
 
-    // -------- pass sorted data as props into Gnome component -------------
-    const gnomes = sorted.map(item => {
-      return (
-        <Gnome
-          hair={hair}
-          data={item}
-          key={item.id}
-          imageIsLoaded={imageIsLoaded}
-        />
-      );
-    });
-    // ------------imaging loading---------------------
-    if (!imageIsLoaded) {
-      return <div>Loading image....</div>;
-    } else {
-      return (
-        <Fragment>
+    const Loading = <div>Loading image....</div>;
+    const GnomePage = (
+      <Fragment>
+        <div className="main-container">
+          <div className="header-image">
+            <img src={require("../images/gnome.jpg")} alt="gnome" />
+            <div className="welcome">
+              Welcome to the world first Gnome's Registry! Find your Gnome by
+              name, age, weight, height, friends and professions.
+            </div>
+          </div>
           <div className="menu-container">
             {/* --------dropdown list for name, age, weight, height, no.friends by asc/desc order------------  */}
-            <HairMenu data={data} handleHairInput={this.handleHair} />
             <OrderMenu
               doOrder={this.doOrder}
               order={order}
               orderBy={orderBy}
               doOrderBy={this.doOrderBy}
-              resetHandle={this.reset}
+              resetHandle={this.handleReset}
+              data={data}
             />
-
             {/* --------dropdown list for hair color------------  */}
-
-            {/* <HairColorMenu data={data} handleInputColor={this.handleColor} /> */}
-
-            {/* -------dropdown list for professions --------------- */}
-
-            {/* <ProfessionMenu data={data} handleInputPro={this.handlePro} /> */}
+            <HairColorMenu data={data} handleInputColor={this.handleColor} />
+            {/* -------dropdown list for professions --------------- */}{" "}
+            <ProfessionMenu data={data} handleInputPro={this.handlePro} />
           </div>
-          <div>{gnomes}</div>
-        </Fragment>
-      );
-    }
+
+          {/*  -------- pass sorted data as props into Gnome component -------- */}
+          <Gnome sorted={sorted} />
+        </div>
+      </Fragment>
+    );
+
+    return (
+      <Fragment>
+        {/* <div className="header-image">
+          <img src={require("../../images/cover.jpg")} alt="gnome" />
+        </div> */}
+        <div>{imageIsLoaded ? GnomePage : Loading}</div>
+      </Fragment>
+    );
   }
 }
 
-export default Container;
+export default HomePage;

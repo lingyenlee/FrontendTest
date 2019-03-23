@@ -5,12 +5,13 @@ class ProfessionMenu extends Component {
   render() {
     const { data, handleInputPro } = this.props;
     const allProfession = data.map(item => item.professions).flat(1);
-    const uniqueProfession = [...new Set(allProfession)].sort();
 
+    const uniqueProfession = [...new Set(allProfession)].sort();
+    // console.log(uniqueProfession);
     return (
       <Fragment>
         <Select
-          placeholder="PROFESSION"
+          placeholder="Find by Profession"
           simpleValue={true}
           onChange={handleInputPro}
           isMulti

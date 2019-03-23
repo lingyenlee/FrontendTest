@@ -1,11 +1,12 @@
 import React, { Component, Fragment } from "react";
-import Container from "./components/Container";
+import HomePage from "./components/Homepage";
+import "./index.css";
 
 class App extends Component {
   render() {
     return (
       <Fragment>
-        <Container />
+        <HomePage />
       </Fragment>
     );
   }

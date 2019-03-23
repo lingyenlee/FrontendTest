@@ -1,14 +1,15 @@
 import React, { Component, Fragment } from "react";
 import Select from "react-select";
+import "./menu.css";
 
 class HairColorMenu extends Component {
-  state = {
-    selectedOption: "",
-  };
-  handleChange = selectedOption => {
-    this.setState({ selectedOption: selectedOption });
-    console.log("Option selected", selectedOption);
-  };
+  // state = {
+  //   selectedOption: "",
+  // };
+  // handleChange = selectedOption => {
+  //   this.setState({ selectedOption: selectedOption });
+  //   console.log("Option selected", selectedOption);
+  //  };
 
   render() {
     // const { isClearable, isSearchable, isLoading } = this.state;
@@ -17,10 +18,10 @@ class HairColorMenu extends Component {
     return (
       <Fragment>
         <Select
-          placeholder="HAIR COLOR"
+          placeholder="Find by Hair Color"
           // simpleValue={true}
           isMulti
-          onChange={this.handleChange}
+          onChange={handleInputColor}
           className="basic-multi-select"
           classNamePrefix="select"
           name="hairColor"
