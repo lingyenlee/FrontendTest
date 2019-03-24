@@ -1,36 +1,31 @@
-import React, { Component, Fragment } from "react";
-import Select from "react-select";
+import React, { Component } from "react";
 
 class HairMenu extends Component {
-  state = {
-    isClearable: true,
-  };
-  state = {
-    selectedOption: "",
-  };
-  handleChange = selectedOption => {
-    this.setState({ selectedOption: selectedOption });
-    console.log("Option selected", selectedOption);
-  };
+  // state = {
+  //   selectedOption: "",
+  // };
+  // handleChange = e => {
+  //   [e.target.name] = e.target.value;
+  //   this.setState({ selectedOption: e.target.value });
+  //   console.log("Option selected", e.target.value);
+  // };
 
   render() {
-    const { data, handleHairInput } = this.props;
-    const uniqueColor = [...new Set(data.map(item => item.hair_color))];
-    console.log(uniqueColor);
-    console.log(uniqueColor.map(x => ({ label: x, value: x })));
+    const { handleHairInput, placeholder, data } = this.props;
+    const uniqueHairColor = [...new Set(data.map(item => item.hair_color))];
+
     return (
-      <Fragment>
-        <Select
-          placeholder="Hair Color"
-          simpleValue={false}
-          onChange={handleHairInput}
-          isMulti
-          name="hair"
-          className="basic-multi-select"
-          classNamePrefix="select"
-          options={uniqueColor.map(x => ({ label: x, value: x }))}
-        />
-      </Fragment>
+      <div className="hairColor-menu">
+        <span>Filter by hair color</span>
+        <select className="selectHairColor" onChange={handleHairInput} multiple>
+          <option value=" ">{placeholder}</option>
+          {uniqueHairColor.map(item => (
+            <option key={item} value={item} options={item}>
+              {item}
+            </option>
+          ))}
+        </select>
+      </div>
     );
   }
 }

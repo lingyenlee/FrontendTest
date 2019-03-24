@@ -219,9 +219,9 @@ img.heightIcon {
 }
 
 /* ------------order menu ----------------- */
-.basic-single,
-.basic-multi-select,
-.order-btn-container {
+.order-menu,
+.hairColor-menu,
+.profession-menu {
   width: 350px;
 }
 
@@ -229,4 +229,10 @@ img.heightIcon {
   margin-top: 10px;
   display: flex;
   justify-content: space-evenly;
+}
+
+/*  ----------hair and profession options --------- */
+.selectHairColor,
+.selectProfession {
+  width: 250px;
 }
