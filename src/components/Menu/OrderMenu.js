@@ -1,16 +1,17 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
+import Select from "react-select";
 
 class OrderMenu extends Component {
-  // handleReset = e => {};
-
-  // handleChange = event => {
-  // const value = event.target.getAttribute("value");
-  //   this.setState({ selectedOption: value });
-  //   console.log("Option selected", this.state.selectedOption);
+  // state = {
+  //   selectedOption: "",
+  // };
+  // handleChange = selectedOption => {
+  //   this.setState({ selectedOption: selectedOption });
+  //   console.log("Option selected", selectedOption);
   // };
 
   render() {
-    const { doOrder, doOrderBy, order, placeholder, data } = this.props;
+    const { doOrder, doOrderBy, order } = this.props;
     //------ define options of dropdown menu -----------
     const orderProp = [
       "name",
@@ -22,17 +23,16 @@ class OrderMenu extends Component {
     ];
     return (
       <div className="order-menu">
-        <span>Filter by name, age, weight, height, friends, professions</span>
-        <br />
-        <select className="selectBy" onChange={doOrderBy}>
-          <option value=" ">{placeholder}</option>
-          {orderProp.map(item => (
-            <option key={item} value={item} options={item}>
-              {item}
-            </option>
-          ))}
-        </select>
-
+        <Select
+          placeholder="Find by Profession"
+          simpleValue={false}
+          onChange={doOrderBy}
+          className="basic-single"
+          classNamePrefix="select"
+          name="profession"
+          options={orderProp.map(x => ({ label: x, value: x }))}
+          isClearable
+        />
         <form className="order-btn-container">
           <div className="form-check">
             <label className="radio">

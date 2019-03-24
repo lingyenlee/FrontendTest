@@ -1,22 +1,25 @@
 import React, { Component } from "react";
+import Select from "react-select";
 
 class ProfessionMenu extends Component {
   render() {
-    const { data, handleInputPro, placeholder } = this.props;
+    const { data, handleInputPro } = this.props;
     const allProfessions = data.map(item => item.professions).flat(1);
     const uniqueProfession = [...new Set(allProfessions)].sort();
 
     return (
       <div className="profession-menu">
-        <span>Filter by profession</span>
-        <select className="selectProfession" onChange={handleInputPro} multiple>
-          <option value=" ">{placeholder}</option>
-          {uniqueProfession.map(item => (
-            <option key={item} value={item} options={item}>
-              {item}
-            </option>
-          ))}
-        </select>
+        <Select
+          placeholder="Find by Profession"
+          simpleValue={false}
+          isMulti
+          onChange={handleInputPro}
+          className="basic-multi-select"
+          classNamePrefix="select"
+          name="profession"
+          options={uniqueProfession.map(x => ({ label: x, value: x }))}
+          isClearable
+        />
       </div>
     );
   }

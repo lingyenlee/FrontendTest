@@ -4,8 +4,8 @@ import _ from "lodash";
 import AnimalCards from "./AnimalCards";
 import ProfessionMenu from "./Menu/ProfessionMenu";
 import OrderMenu from "./Menu/OrderMenu";
-// import HairColorMenu from "./Menu/HairColorMenu";
-import HairMenu from "./Menu/HairMenu";
+import HairColorMenu from "./Menu/HairColorMenu";
+// import HairMenu from "./Menu/HairMenu";
 
 class HomePage extends Component {
   constructor(props) {
@@ -29,6 +29,7 @@ class HomePage extends Component {
     const apiUrl =
       "https://raw.githubusercontent.com/rrafols/mobile_test/master/data.json";
     axios.get(apiUrl).then(({ data }) => {
+      console.log(data);
       localStorage.setItem("data", data);
       this.setState({
         data: data.Brastlewark,
@@ -43,13 +44,18 @@ class HomePage extends Component {
   }
 
   //------------- handle and bind order value -----------------
-  doOrderBy(e) {
-    const newOrderBy = e.target.value;
-    console.log(e.target.value);
-    console.log(newOrderBy);
-    this.setState({
-      orderBy: newOrderBy,
-    });
+  doOrderBy(val) {
+    if (val == null) {
+      this.setState({
+        newOrderBy: "name",
+      });
+      console.log(val);
+    } else {
+      const newOrderBy = Object.keys(val).map(key => val[key])[0];
+      this.setState({
+        orderBy: newOrderBy,
+      });
+    }
   }
 
   // ---------- handle and bind asc or desc order value -----------------
@@ -59,26 +65,27 @@ class HomePage extends Component {
   }
 
   // -----------handle and bind hair color value ------------------------------
-  handleColor(e) {
+  handleColor(val) {
+    const newColor = val.map(item => item.value);
     const uniqueHairColor = [
       ...new Set(this.state.data.map(item => item.hair_color)),
     ];
-    const newColor = [...e.target.selectedOptions].map(opt => opt.value);
-    const newValue = newColor == " " ? uniqueHairColor : newColor;
+    const newValue = newColor === "" ? uniqueHairColor : newColor;
+
     this.setState({
       hairColor: newValue,
     });
   }
 
   // -----------handle and bind profession value ------------------------------
-  handlePro(e) {
-    const newProfession = [...e.target.selectedOptions].map(opt => opt.value);
+  handlePro(val) {
+    const newProfession = val.map(item => item.value);
     const allProfessions = this.state.data
       .map(item => item.professions)
       .flat(1);
     const uniqueProfession = [...new Set(allProfessions)].sort();
-    const newValue = newProfession == " " ? uniqueProfession : newProfession;
-    console.log(uniqueProfession);
+    const newValue = newProfession === " " ? uniqueProfession : newProfession;
+
     this.setState({
       profession: newValue,
     });
@@ -96,49 +103,43 @@ class HomePage extends Component {
     let sorted = data;
     // ------------sort the gnomes according to selected properties -------------
 
-    if (order) {
-      if (orderBy !== ("number of friends" && "number of professions")) {
-        sorted = _.orderBy(
-          sorted,
-          item => {
-            return item[orderBy];
-          },
-          order
-        );
-      } else if (orderBy === "number of friends") {
-        sorted = _.orderBy(
-          sorted,
-          item => {
-            return item.friends.length;
-          },
-          order
-        );
-      } else {
-        sorted = _.orderBy(
-          sorted,
-          item => {
-            return item.professions.length;
-          },
-          order
-        );
-      }
-    } else if (hairColor) {
+    if (hairColor) {
       sorted = _.filter(sorted, item => _.includes(hairColor, item.hair_color));
-    } else if (profession) {
-      sorted = _.filter(sorted, { professions: profession });
-    } else {
-      sorted = data;
     }
 
-    // const filterProperties = [orderBy, hairColor, profession];
-    // filterProperties.forEach(function(filterBy) {
-    //   let filterValue = [filterBy];
-    //   if (filterValue) {
-    //     sorted = sorted.filter(function(item) {
-    //       return item[filterBy] === filterValue;
-    //     });
-    //   }
-    // });
+    if (profession) {
+      sorted = _.filter(sorted, { professions: profession });
+    }
+
+    if (orderBy !== ("number of friends" && "number of professions")) {
+      sorted = _.orderBy(
+        sorted,
+        item => {
+          return item[orderBy];
+        },
+        order
+      );
+    }
+
+    if (orderBy === "number of friends") {
+      sorted = _.orderBy(
+        sorted,
+        item => {
+          return item.friends.length;
+        },
+        order
+      );
+    }
+
+    if (orderBy === "number of professions") {
+      sorted = _.orderBy(
+        sorted,
+        item => {
+          return item.professions.length;
+        },
+        order
+      );
+    }
 
     const Loading = <div>Loading image....</div>;
     const GnomePage = (
@@ -159,19 +160,14 @@ class HomePage extends Component {
               orderBy={orderBy}
               doOrderBy={this.doOrderBy}
               placeholder="Select by..."
+              data={data}
+              sorted={data}
             />
             {/* --------dropdown list for hair color------------  */}
-            <HairMenu
-              data={data}
-              handleHairInput={this.handleColor}
-              placeholder="Choose hair color..."
-            />
+            <HairColorMenu data={data} handleInputColor={this.handleColor} />
+
             {/* -------dropdown list for professions --------------- */}
-            <ProfessionMenu
-              data={data}
-              handleInputPro={this.handlePro}
-              placeholder="Choose profession..."
-            />
+            <ProfessionMenu data={data} handleInputPro={this.handlePro} />
           </div>
           {/*  -------- pass sorted data as props into Gnome component -------- */}
           <AnimalCards sorted={sorted} data={data} />
