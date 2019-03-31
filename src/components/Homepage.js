@@ -5,7 +5,6 @@ import AnimalCards from "./AnimalCards";
 import ProfessionMenu from "./Menu/ProfessionMenu";
 import OrderMenu from "./Menu/OrderMenu";
 import HairColorMenu from "./Menu/HairColorMenu";
-// import HairMenu from "./Menu/HairMenu";
 
 class HomePage extends Component {
   constructor(props) {
@@ -29,7 +28,6 @@ class HomePage extends Component {
     const apiUrl =
       "https://raw.githubusercontent.com/rrafols/mobile_test/master/data.json";
     axios.get(apiUrl).then(({ data }) => {
-      console.log(data);
       localStorage.setItem("data", data);
       this.setState({
         data: data.Brastlewark,
@@ -49,7 +47,7 @@ class HomePage extends Component {
       this.setState({
         newOrderBy: "name",
       });
-      console.log(val);
+      // console.log(val);
     } else {
       const newOrderBy = Object.keys(val).map(key => val[key])[0];
       this.setState({
@@ -64,31 +62,47 @@ class HomePage extends Component {
     this.setState({ order: newOrder });
   }
 
-  // -----------handle and bind hair color value ------------------------------
-  handleColor(val) {
-    const newColor = val.map(item => item.value);
-    const uniqueHairColor = [
+  //-------- remove duplicate hair colors into an array----------------
+  uniqueHairColor() {
+    const allcolors = [
       ...new Set(this.state.data.map(item => item.hair_color)),
     ];
-    const newValue = newColor === "" ? uniqueHairColor : newColor;
+    return allcolors;
+  }
 
-    this.setState({
-      hairColor: newValue,
-    });
+  //---------remove duplicate and combine all professions in an array------
+  uniqueProfession() {
+    const allPro = this.state.data.map(item => item.professions);
+    const combinePro = [].concat(...allPro);
+    const uniqueProfession = [...new Set(combinePro)].sort();
+    return uniqueProfession;
+  }
+  // -----------handle and bind hair color value ------------------------------
+  handleColor(val) {
+    if (val == "") {
+      this.setState({
+        hairColor: "",
+      });
+    } else {
+      const newColor = val.map(item => item.value);
+      this.setState({
+        hairColor: newColor,
+      });
+    }
   }
 
   // -----------handle and bind profession value ------------------------------
   handlePro(val) {
-    const newProfession = val.map(item => item.value);
-    const allProfessions = this.state.data
-      .map(item => item.professions)
-      .flat(1);
-    const uniqueProfession = [...new Set(allProfessions)].sort();
-    const newValue = newProfession === " " ? uniqueProfession : newProfession;
-
-    this.setState({
-      profession: newValue,
-    });
+    if (val == "") {
+      this.setState({
+        profession: "",
+      });
+    } else {
+      const newProfession = val.map(item => item.value);
+      this.setState({
+        profession: newProfession,
+      });
+    }
   }
 
   render() {
@@ -100,17 +114,30 @@ class HomePage extends Component {
       order,
       profession,
     } = this.state;
-    let sorted = data;
-    // ------------sort the gnomes according to selected properties -------------
 
+    let sorted = data;
+
+    //------create options for hair color dropdown menu ------------
+    const colors = this.uniqueHairColor().map(x => ({ label: x, value: x }));
+
+    //------create options for hair color dropdown menu ------------
+    const allProfessions = this.uniqueProfession().map(x => ({
+      label: x,
+      value: x,
+    }));
+
+    // ------------sort the gnomes according to selected properties -------------
+    // sort by hair color
     if (hairColor) {
       sorted = _.filter(sorted, item => _.includes(hairColor, item.hair_color));
     }
 
+    // sort by profession
     if (profession) {
       sorted = _.filter(sorted, { professions: profession });
     }
 
+    // sort by age, weight, name, height
     if (orderBy !== ("number of friends" && "number of professions")) {
       sorted = _.orderBy(
         sorted,
@@ -121,6 +148,7 @@ class HomePage extends Component {
       );
     }
 
+    // sort by number of friends
     if (orderBy === "number of friends") {
       sorted = _.orderBy(
         sorted,
@@ -131,6 +159,7 @@ class HomePage extends Component {
       );
     }
 
+    // sort by number of professions
     if (orderBy === "number of professions") {
       sorted = _.orderBy(
         sorted,
@@ -142,13 +171,14 @@ class HomePage extends Component {
     }
 
     const Loading = <div>Loading image....</div>;
-    const GnomePage = (
+
+    const Animal = (
       <Fragment>
         <div className="main-container">
           <div className="header-image">
             <img src={require("../images/gnome.jpg")} alt="gnome" />
             <div className="welcome">
-              Welcome to the world first Gnome's Registry! Find your Gnome by
+              Welcome to the world's first Gnome Registry! Find your Gnome by
               name, age, weight, height, friends and professions.
             </div>
           </div>
@@ -159,16 +189,23 @@ class HomePage extends Component {
               order={order}
               orderBy={orderBy}
               doOrderBy={this.doOrderBy}
-              placeholder="Select by..."
-              data={data}
-              sorted={data}
             />
+
             {/* --------dropdown list for hair color------------  */}
-            <HairColorMenu data={data} handleInputColor={this.handleColor} />
+            <HairColorMenu
+              data={data}
+              handleInputColor={this.handleColor}
+              colors={colors}
+            />
 
             {/* -------dropdown list for professions --------------- */}
-            <ProfessionMenu data={data} handleInputPro={this.handlePro} />
+            <ProfessionMenu
+              data={data}
+              handleInputPro={this.handlePro}
+              allProfessions={allProfessions}
+            />
           </div>
+
           {/*  -------- pass sorted data as props into Gnome component -------- */}
           <AnimalCards sorted={sorted} data={data} />
         </div>
@@ -177,7 +214,7 @@ class HomePage extends Component {
 
     return (
       <Fragment>
-        <div>{imageIsLoaded ? GnomePage : Loading}</div>
+        <div>{imageIsLoaded ? Animal : Loading}</div>
       </Fragment>
     );
   }

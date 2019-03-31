@@ -24,7 +24,7 @@ class OrderMenu extends Component {
     return (
       <div className="order-menu">
         <Select
-          placeholder="Find by Profession"
+          placeholder="Find by name, age, weight, height.."
           simpleValue={false}
           onChange={doOrderBy}
           className="basic-single"

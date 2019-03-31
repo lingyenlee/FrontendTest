@@ -2,10 +2,10 @@ import React, { Component, Fragment } from "react";
 import Select from "react-select";
 
 class HairColorMenu extends Component {
+ 
 
   render() {
-    const { data, handleInputColor } = this.props;
-    const uniqueColor = [...new Set(data.map(item => item.hair_color))];
+    const { handleInputColor, colors } = this.props;
     return (
       <Fragment>
         <Select
@@ -16,7 +16,7 @@ class HairColorMenu extends Component {
           className="basic-multi-select"
           classNamePrefix="select"
           name="hairColor"
-          options={uniqueColor.map(x => ({ label: x, value: x }))}
+          options={colors}
           isClearable
         />
       </Fragment>

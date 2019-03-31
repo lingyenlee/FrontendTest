@@ -15,7 +15,7 @@ code {
     monospace;
 }
 
-/* -------------- HOMEPAGE ------------------------ */
+/* -------------- HOMEPAGE component ------------------------ */
 
 .header-image img {
   object-fit: cover;
@@ -37,15 +37,21 @@ code {
   text-align: center;
 }
 
-/* -----------CSS for Gnome Flip Card ------------ */
+/* ----------- Animal Card component ------------ */
+
+/* stats */
+.stats {
+  text-align: center;
+}
 
 .flip-card-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 15px 10px;
+  margin-top: 15px;
 }
 
-/* --------flip card front ---------------------- */
+/* flip card front  */
 
 .flip-card {
   background-color: transparent;
@@ -146,7 +152,7 @@ code {
   color: black;
 }
 
-/* -------- flip card back -----------*/
+/* flip card back */
 
 .flip-card-back {
   background-color: #2980b9;

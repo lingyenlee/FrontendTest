@@ -7,6 +7,8 @@ class AnimalCards extends Component {
     const NoFriends = <div>No friends to show</div>;
     return (
       <Fragment>
+        <div className="stats">Number of gnomes: {sorted.length} </div>
+
         <div className="flip-card-container">
           {sorted.map(animal => {
             return (
@@ -57,14 +59,14 @@ class AnimalCards extends Component {
                       <div className="professions">
                         Number of professions:
                         <div className="professions-num">
-                          {animal.professions.length === 0
+                          {animal.professions.length == 0
                             ? Jobless
                             : animal.professions.length}
                         </div>
                       </div>
                       <div className="friends">Number of friends: </div>
                       <div className="friends-num">
-                        {animal.friends.length === 0
+                        {animal.friends.length == 0
                           ? NoFriends
                           : animal.friends.length}
                       </div>
