@@ -7,9 +7,4 @@ cache:
 script:
   - npm test
   - npm run build
-deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: $github_token
-  on:
-    branch: master
+
