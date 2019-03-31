@@ -7,3 +7,10 @@ cache:
 script:
   - npm test
   - npm run build
+deploy:
+  provider: heroku
+  skip_cleanup: true
+  domain: https://pacific-cove-49600.herokuapp.com/
+  local_dir: build
+  on:
+    branch: master
