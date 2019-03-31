@@ -2,6 +2,7 @@
   "name": "frontendtest",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://github.com/lingyenlee/FrontendTest",
   "dependencies": {
     "axios": "^0.18.0",
     "braces": "^2.3.2",
