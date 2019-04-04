@@ -1,6 +1,6 @@
 import React from "react";
-import { shallow } from "../../enzyme";
-import AnimalCards from "../AnimalCards";
+import { shallow } from "enzyme";
+import AnimalCards from "./AnimalCards";
 
 describe("mapping of input data", () => {
   it("renders animals-properties", () => {
@@ -14,7 +14,6 @@ describe("mapping of input data", () => {
       },
     ];
     const wrapper = shallow(<AnimalCards sorted={sorted} />);
-   
 
     //expect the wrapper object to be defined
     expect(wrapper.find(".flip-card-container")).toBeDefined();

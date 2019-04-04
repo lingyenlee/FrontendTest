@@ -34,7 +34,7 @@ class AnimalCards extends Component {
                         <div className="age-group">
                           <img
                             className="ageIcon"
-                            src={require("../images/axe.png")}
+                            src={require("../../images/axe.png")}
                             alt="ageIcon"
                           />
                           <div className="age">{animal.age + " "} yrs</div>
@@ -42,7 +42,7 @@ class AnimalCards extends Component {
                         <div className="weight-group">
                           <img
                             className="weightIcon"
-                            src={require("../images/weight.png")}
+                            src={require("../../images/weight.png")}
                             alt="weightIcon"
                           />
                           <div className="weight"> {animal.weight} kg </div>
@@ -50,7 +50,7 @@ class AnimalCards extends Component {
                         <div className="height-group">
                           <img
                             className="ageIcon"
-                            src={require("../images/height.png")}
+                            src={require("../../images/height.png")}
                             alt="heightIcon"
                           />
                           <div className="height">{animal.height} cm </div>

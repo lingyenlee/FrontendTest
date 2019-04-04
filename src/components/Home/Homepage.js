@@ -1,10 +1,11 @@
 import React, { Component, Fragment } from "react";
 import axios from "axios";
 import _ from "lodash";
-import AnimalCards from "./AnimalCards";
-import ProfessionMenu from "./Menu/ProfessionMenu";
-import OrderMenu from "./Menu/OrderMenu";
-import HairColorMenu from "./Menu/HairColorMenu";
+import AnimalCards from "../Cards/AnimalCards";
+import ProfessionMenu from "../Menu/ProfessionMenu";
+import OrderMenu from "../Menu/OrderMenu";
+import HairColorMenu from "../Menu/HairColorMenu";
+// import { Container, Row, Col } from "reactstrap";
 
 class HomePage extends Component {
   constructor(props) {
@@ -176,7 +177,7 @@ class HomePage extends Component {
       <Fragment>
         <div className="main-container">
           <div className="header-image">
-            <img src={require("../images/gnome.jpg")} alt="gnome" />
+            <img src={require("../../images/gnome.jpg")} alt="gnome" />
             <div className="welcome">
               Welcome to the world's first Gnome Registry! Find your Gnome by
               name, age, weight, height, friends and professions.
@@ -184,6 +185,7 @@ class HomePage extends Component {
           </div>
           <div className="menu-container">
             {/* --------dropdown list for name, age, weight, height, no.friends by asc/desc order------------  */}
+
             <OrderMenu
               doOrder={this.doOrder}
               order={order}
@@ -192,6 +194,7 @@ class HomePage extends Component {
             />
 
             {/* --------dropdown list for hair color------------  */}
+
             <HairColorMenu
               data={data}
               handleInputColor={this.handleColor}
@@ -199,6 +202,7 @@ class HomePage extends Component {
             />
 
             {/* -------dropdown list for professions --------------- */}
+
             <ProfessionMenu
               data={data}
               handleInputPro={this.handlePro}

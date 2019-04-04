@@ -17,15 +17,9 @@ code {
 
 /* -------------- HOMEPAGE component ------------------------ */
 
-.header-image img {
-  object-fit: cover;
-  height: 300px;
-  width: 100%;
-}
-
 .welcome {
   position: absolute;
-  top: 20px;
+  top: 15px;
   width: 600px;
   left: 40px;
   font-family: "Dancing Script", cursive;
@@ -213,6 +207,12 @@ img.heightIcon {
 .friends-num img {
   width: 30px;
   height: 30px;
+}
+
+.header-image img {
+  object-fit: cover;
+  height: 320px;
+  width: 100%;
 }
 
 /* -----------DROPDOWN MENUS----------------- */
