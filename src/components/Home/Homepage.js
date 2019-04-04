@@ -5,7 +5,6 @@ import AnimalCards from "../Cards/AnimalCards";
 import ProfessionMenu from "../Menu/ProfessionMenu";
 import OrderMenu from "../Menu/OrderMenu";
 import HairColorMenu from "../Menu/HairColorMenu";
-// import { Container, Row, Col } from "reactstrap";
 
 class HomePage extends Component {
   constructor(props) {
@@ -28,13 +27,16 @@ class HomePage extends Component {
   fetchAnimals() {
     const apiUrl =
       "https://raw.githubusercontent.com/rrafols/mobile_test/master/data.json";
-    axios.get(apiUrl).then(({ data }) => {
-      localStorage.setItem("data", data);
-      this.setState({
-        data: data.Brastlewark,
-        imageIsLoaded: true,
-      });
-    });
+    axios
+      .get(apiUrl)
+      .then(({ data }) => {
+        localStorage.setItem("data", data);
+        this.setState({
+          data: data.Brastlewark,
+          imageIsLoaded: true,
+        });
+      })
+      .catch(err => console.log(err));
   }
 
   // --------- show data when component mounts ---------------------------
