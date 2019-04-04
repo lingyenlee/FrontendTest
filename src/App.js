@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import HomePage from "./components/Homepage";
+import HomePage from "./components/Home/Homepage";
 import "./index.css";
 
 class App extends Component {
