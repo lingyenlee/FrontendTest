@@ -30,7 +30,7 @@ class HomePage extends Component {
     axios
       .get(apiUrl)
       .then(({ data }) => {
-        localStorage.setItem("data", data);
+        localStorage.setItem("data", JSON.stringify(data.Brastlewark));
         this.setState({
           data: data.Brastlewark,
           imageIsLoaded: true,
@@ -42,6 +42,8 @@ class HomePage extends Component {
   // --------- show data when component mounts ---------------------------
   componentDidMount() {
     this.fetchAnimals();
+    // this.uniqueHairColor();
+    // this.uniqueProfession();
   }
 
   //------------- handle and bind order value -----------------
@@ -67,6 +69,8 @@ class HomePage extends Component {
 
   //-------- remove duplicate hair colors into an array----------------
   uniqueHairColor() {
+    // const getData = JSON.parse(localStorage.getItem("data"));
+    // console.log(getData);
     const allcolors = [
       ...new Set(this.state.data.map(item => item.hair_color)),
     ];
@@ -75,6 +79,7 @@ class HomePage extends Component {
 
   //---------remove duplicate and combine all professions in an array------
   uniqueProfession() {
+    // const getData = JSON.parse(localStorage.getItem("data"));
     const allPro = this.state.data.map(item => item.professions);
     const combinePro = [].concat(...allPro);
     const uniqueProfession = [...new Set(combinePro)].sort();
@@ -109,6 +114,7 @@ class HomePage extends Component {
   }
 
   render() {
+    // console.log(this.state.data);
     const {
       data,
       imageIsLoaded,
@@ -198,7 +204,6 @@ class HomePage extends Component {
             {/* --------dropdown list for hair color------------  */}
 
             <HairColorMenu
-              data={data}
               handleInputColor={this.handleColor}
               colors={colors}
             />
@@ -206,14 +211,13 @@ class HomePage extends Component {
             {/* -------dropdown list for professions --------------- */}
 
             <ProfessionMenu
-              data={data}
               handleInputPro={this.handlePro}
               allProfessions={allProfessions}
             />
           </div>
 
           {/*  -------- pass sorted data as props into Gnome component -------- */}
-          <AnimalCards sorted={sorted} data={data} />
+          <AnimalCards sorted={sorted} />
         </div>
       </Fragment>
     );
