@@ -20,4 +20,4 @@ The app can be viewed in 2 ways:
 1. Lodash - used to make the filtering functions easier to write.
 2. Axios - used to make the fetch request and return the data object (json) as it is.
 3. React-select - used for the reusable dropdown menu component as it can be easily configured.
-4. enzyme - used for performing unit test and works well with jest.
+4. Jest/Enzyme - used for performing unit test and works well with jest.
