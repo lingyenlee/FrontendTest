@@ -16,10 +16,11 @@ const sorted = [
 describe("AnimalCards Component", () => {
   describe("mapping of input data", () => {
     it("renders animals-properties", () => {
-
       const wrapper = shallow(<AnimalCards sorted={sorted} />);
-      expect(wrapper.find(".flip-card-container")).toBeDefined();
-      expect(wrapper.find(".flip-card-container")).toHaveLength(sorted.length);
+      expect(wrapper.find(`[data-test="flip-card-container"]`)).toBeDefined();
+      expect(wrapper.find(`[data-test="flip-card-container"]`)).toHaveLength(
+        sorted.length
+      );
     });
 
     it("should have 4 images display in a card", () => {

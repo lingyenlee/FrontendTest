@@ -2,8 +2,8 @@ import React from "react";
 import { shallow, mount } from "enzyme";
 import HomePage from "./Homepage";
 
-// import { create } from "react-test-renderer";
-// import axios from "axios";
+import { create } from "react-test-renderer";
+import axios from "axios";
 
 // const setUp = (props = []) => {
 //   const component = mount(<HomePage {...props} />);
@@ -16,28 +16,30 @@ describe("Homepage", () => {
   //     component = setUp();
   //   });
 
-  const data = [
-    {
-      age: "1",
-      weight: "2",
-      height: "1",
-      professions: ["a", "b"],
-      friends: ["c", "d"],
-    },
-  ];
+  const data = {
+    Brastlewark: [
+      {
+        age: "1",
+        weight: "2",
+        height: "1",
+        professions: ["a", "b"],
+        friends: ["c", "d"],
+      },
+    ],
+  };
 
-  // mock API call
+  //mock API call
   //   it("should make an API call", () => {
   //     jest.mock("axios");
   //     const getSpy = jest.spyOn(axios, "get");
-  //     shallow(<HomePage />);
+  //     mount(<HomePage data={data} />);
   //     expect(getSpy).toBeCalled();
-  //   });
+  //   });fri
 
   // test for fetchAnimals
   it("Should call fetchAnimals", () => {
     const getSpy = jest.spyOn(HomePage.prototype, "fetchAnimals");
-    mount(<HomePage data={[]} />);
+    mount(<HomePage data={data.Brastlewark} professions={[]} friends={[]} />);
     expect(getSpy).toHaveBeenCalledTimes(1);
   });
 

@@ -9,7 +9,7 @@ class AnimalCards extends Component {
       <Fragment>
         <div className="stats">Number of gnomes: {sorted.length} </div>
 
-        <div className="flip-card-container">
+        <div className="flip-card-container" data-test="flip-card-container" >
           {sorted.map(animal => {
             return (
               <div className="flip-card" key={animal.id}>
