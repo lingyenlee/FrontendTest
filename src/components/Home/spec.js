@@ -29,12 +29,12 @@ describe("Homepage", () => {
   };
 
   //mock API call
-  //   it("should make an API call", () => {
-  //     jest.mock("axios");
-  //     const getSpy = jest.spyOn(axios, "get");
-  //     mount(<HomePage data={data} />);
-  //     expect(getSpy).toBeCalled();
-  //   });fri
+    it("should make an API call", () => {
+      jest.mock("axios");
+      const getSpy = jest.spyOn(axios, "get");
+      mount(<HomePage data={data} />);
+      expect(getSpy).toBeCalled();
+    });
 
   // test for fetchAnimals
   it("Should call fetchAnimals", () => {
@@ -44,27 +44,27 @@ describe("Homepage", () => {
   });
 
   //test for fetchAnimals
-  //   it("shall update state when fetch animal is called", () => {
-  //     const setStateSpy = jest.spyOn(HomePage.prototype, "setState");
-  //     const wrapper = shallow(
-  //       <HomePage>
-  //         <p>Data</p>
-  //       </HomePage>
-  //     ).instance();
-  //     expect(setStateSpy).toHaveBeenCalled();
-  //   });
+    // it("shall update state when fetch animal is called", () => {
+    //   const setStateSpy = jest.spyOn(HomePage.prototype, "setState");
+    //   const wrapper = shallow(
+    //     <HomePage>
+    //       <p>Data</p>
+    //     </HomePage>
+    //   ).instance();
+    //   expect(setStateSpy).toHaveBeenCalled();
+    // });
 
   //test for snapshot of Homepage
-  //   it("Should matches snapshot", () => {
-  //     const component = create(<HomePage />);
-  //     expect(component.toJSON()).toMatchSnapshot();
-  //   });
+    it("Should matches snapshot", () => {
+      const component = create(<HomePage />);
+      expect(component.toJSON()).toMatchSnapshot();
+    });
 
   //calls for component did mount
-  //   it("Should call componentDidMount", () => {
-  //     jest.spyOn(HomePage.prototype, "componentDidMount");
-  //     //use shallow at first but it doesn't work. why?
-  //     mount(<HomePage />);
-  //     expect(HomePage.prototype.componentDidMount.mock.calls.length).toBe(1);
-  //   });
+    it("Should call componentDidMount", () => {
+      jest.spyOn(HomePage.prototype, "componentDidMount");
+      //use shallow at first but it doesn't work. why?
+      mount(<HomePage />);
+      expect(HomePage.prototype.componentDidMount.mock.calls.length).toBe(1);
+    });
 });
